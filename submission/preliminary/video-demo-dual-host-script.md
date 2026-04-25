@@ -69,7 +69,7 @@ Cursor and click script:
 
 Spoken script:
 
-Good afternoon judges. We are Team Novum. I am Ong Khai Sern, and my teammate is Tan Eng Feng. This is ASEM Talint, short for talent intelligence. It is a decision-intelligence workflow for semiconductor pathway review. The point is simple. A reviewer should be able to read one candidate clearly, understand the market context around that candidate, and decide the next step with an auditable Z.AI GLM-based explanation.
+Good day judges. We are Team Novum. I am Ong Khai Sern, and my teammate is Tan Eng Feng. This is ASEM Talint, short for talent intelligence. It is a decision-intelligence workflow for semiconductor pathway review. The point is simple. A reviewer should be able to read one candidate clearly, understand the market context around that candidate, and decide the next step with an auditable Z.AI GLM-based explanation.
 
 ### 2. Malaysia Lens and Why the Problem Matters
 
