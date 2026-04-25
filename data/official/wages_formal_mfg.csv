@@ -1,0 +1,18 @@
+date,state,district,sector,metric,value,currency,source
+2025-Q3,Johor,,formal_sector,median_formal_wage,2600,MYR,OpenDOSM formal sector wages dashboard
+2025-Q3,Kedah,,formal_sector,median_formal_wage,2000,MYR,OpenDOSM formal sector wages dashboard
+2025-Q3,Kelantan,,formal_sector,median_formal_wage,1800,MYR,OpenDOSM formal sector wages dashboard
+2025-Q3,Kuala Lumpur,,formal_sector,median_formal_wage,4064,MYR,OpenDOSM formal sector wages dashboard
+2025-Q3,Labuan,,formal_sector,median_formal_wage,2082,MYR,OpenDOSM formal sector wages dashboard
+2025-Q3,Melaka,,formal_sector,median_formal_wage,2500,MYR,OpenDOSM formal sector wages dashboard
+2025-Q3,Malaysia,,formal_sector,median_formal_wage,2864,MYR,OpenDOSM formal sector wages dashboard
+2025-Q3,Negeri Sembilan,,formal_sector,median_formal_wage,2482,MYR,OpenDOSM formal sector wages dashboard
+2025-Q3,Pahang,,formal_sector,median_formal_wage,2227,MYR,OpenDOSM formal sector wages dashboard
+2025-Q3,Putrajaya,,formal_sector,median_formal_wage,2564,MYR,OpenDOSM formal sector wages dashboard
+2025-Q3,Perlis,,formal_sector,median_formal_wage,1800,MYR,OpenDOSM formal sector wages dashboard
+2025-Q3,Penang,,formal_sector,median_formal_wage,2927,MYR,OpenDOSM formal sector wages dashboard
+2025-Q3,Perak,,formal_sector,median_formal_wage,2200,MYR,OpenDOSM formal sector wages dashboard
+2025-Q3,Sabah,,formal_sector,median_formal_wage,2000,MYR,OpenDOSM formal sector wages dashboard
+2025-Q3,Selangor,,formal_sector,median_formal_wage,3127,MYR,OpenDOSM formal sector wages dashboard
+2025-Q3,Sarawak,,formal_sector,median_formal_wage,2200,MYR,OpenDOSM formal sector wages dashboard
+2025-Q3,Terengganu,,formal_sector,median_formal_wage,2100,MYR,OpenDOSM formal sector wages dashboard

@@ -1,0 +1,46 @@
+[
+  {
+    "hotspot_id": "hs_cyberjaya_01",
+    "hotspot_name": "IC Park 2 and ASEM",
+    "hotspot_type": "training_validation_robotics",
+    "district": "Sepang",
+    "state": "Selangor",
+    "latitude": 2.9210,
+    "longitude": 101.6540,
+    "evidence_tag": "official_sector_doc",
+    "source": "MyICPark and Sidec hotspot registry"
+  },
+  {
+    "hotspot_id": "hs_penang_01",
+    "hotspot_name": "Penang Silicon Design and Packaging",
+    "hotspot_type": "design_packaging",
+    "district": "Timur Laut",
+    "state": "Penang",
+    "latitude": 5.3266,
+    "longitude": 100.2810,
+    "evidence_tag": "official_sector_doc",
+    "source": "MyICPark and Sidec hotspot registry"
+  },
+  {
+    "hotspot_id": "hs_kulim_01",
+    "hotspot_name": "Kulim Hi-Tech Manufacturing Corridor",
+    "hotspot_type": "manufacturing_operations",
+    "district": "Kulim",
+    "state": "Kedah",
+    "latitude": 5.3642,
+    "longitude": 100.5618,
+    "evidence_tag": "official_sector_doc",
+    "source": "MyICPark and Sidec hotspot registry"
+  },
+  {
+    "hotspot_id": "hs_johor_01",
+    "hotspot_name": "Johor Advanced Electronics Corridor",
+    "hotspot_type": "embedded_automation",
+    "district": "Johor Bahru",
+    "state": "Johor",
+    "latitude": 1.4927,
+    "longitude": 103.7414,
+    "evidence_tag": "official_sector_doc",
+    "source": "MyICPark and Sidec hotspot registry"
+  }
+]

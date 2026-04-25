@@ -1,0 +1,5 @@
+hotspot_id,hotspot_name,hotspot_type,district,state,latitude,longitude,evidence_tag,source
+hs_cyberjaya_01,IC Park 2 and ASEM,training_validation_robotics,Sepang,Selangor,2.921,101.654,official_sector_doc,MyICPark and Sidec hotspot registry
+hs_penang_01,Penang Silicon Design and Packaging,design_packaging,Timur Laut,Penang,5.3266,100.281,official_sector_doc,MyICPark and Sidec hotspot registry
+hs_kulim_01,Kulim Hi-Tech Manufacturing Corridor,manufacturing_operations,Kulim,Kedah,5.3642,100.5618,official_sector_doc,MyICPark and Sidec hotspot registry
+hs_johor_01,Johor Advanced Electronics Corridor,embedded_automation,Johor Bahru,Johor,1.4927,103.7414,official_sector_doc,MyICPark and Sidec hotspot registry

@@ -1,0 +1,32 @@
+{
+  "formal_wages_dashboard": {
+    "type": "dashboard_props_html",
+    "page_url": "https://open.dosm.gov.my/dashboard/formal-sector-wages",
+    "notes": "Trawled on 2026-04-25. The page exposes state-level median salary data in __NEXT_DATA__.props.pageProps.timeseries_callout.data keyed by DOSM state codes.",
+    "fields": ["date", "state", "value"]
+  },
+  "gdp_qtr_real_supply": {
+    "type": "catalogue_dataset",
+    "catalogue_page": "https://open.dosm.gov.my/data-catalogue/gdp_qtr_real_supply",
+    "api_id": "gdp_qtr_real_supply",
+    "csv_url": "https://storage.dosm.gov.my/gdp/gdp_qtr_real_supply.csv",
+    "parquet_url": "https://storage.dosm.gov.my/gdp/gdp_qtr_real_supply.parquet",
+    "api_example": "https://api.data.gov.my/data-catalogue?id=gdp_qtr_real_supply&limit=3"
+  },
+  "population_district": {
+    "type": "catalogue_dataset",
+    "catalogue_page": "https://open.dosm.gov.my/data-catalogue/population_district",
+    "api_id": "population_district",
+    "csv_url": "https://storage.dosm.gov.my/population/population_district.csv",
+    "parquet_url": "https://storage.dosm.gov.my/population/population_district.parquet",
+    "api_example": "https://api.data.gov.my/data-catalogue?id=population_district&limit=3"
+  },
+  "lfs_year": {
+    "type": "catalogue_dataset",
+    "catalogue_page": "https://open.dosm.gov.my/data-catalogue/lfs_year",
+    "api_id": "lfs_year",
+    "csv_url": "https://storage.dosm.gov.my/labour/lfs_year.csv",
+    "parquet_url": "https://storage.dosm.gov.my/labour/lfs_year.parquet",
+    "api_example": "https://api.data.gov.my/data-catalogue?id=lfs_year&limit=3"
+  }
+}
