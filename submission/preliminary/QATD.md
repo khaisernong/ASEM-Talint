@@ -9,7 +9,7 @@ Working status: Draft for PDF export
 | Field | Detail |
 | --- | --- |
 | System Under Test (SUT) | ASEM Talint |
-| Team Repo URL | `UNSPECIFIED` public repository URL pending publication |
+| Team Repo URL | https://github.com/khaisernong/ASEM-Talint |
 | Project Board URL | `UNSPECIFIED` |
 | Live Deployment URL | Local validation instance at `http://127.0.0.1:8001`; public deployment URL is `UNSPECIFIED` |
 | Objective | Validate that the prototype can produce a structured candidate-track recommendation, handle malformed inputs safely, preserve Z.AI as the judged reasoning path, and expose enough market and resume evidence to support a feasibility review. |

@@ -255,7 +255,13 @@ Detailed day-by-day team planning is `UNSPECIFIED`.
 
 ### 5.2 Team Member Roles
 
-Team-member ownership mapping is `UNSPECIFIED` in the repository and should be completed before PDF export.
+Current preliminary-round team listing:
+
+- Team: Novum
+- Ong Khai Sern: team leader
+- Tan Eng Feng: team member
+
+Detailed workstream ownership mapping is still `UNSPECIFIED` in the repository and should be completed before PDF export.
 
 ### 5.3 Recommendations
 

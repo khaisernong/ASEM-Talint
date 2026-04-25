@@ -70,6 +70,7 @@ def test_dashboard_root_returns_html() -> None:
 
     assert response.status_code == 200
     assert "ASEM Talint Dashboard" in response.text
+    assert 'aria-label="ASEM Talint logo"' in response.text
     assert "Local capability, not just placement" in response.text
     assert "Run ILMU route" in response.text
     assert "Run local preview" in response.text
@@ -88,6 +89,7 @@ def test_candidate_lab_page_returns_html() -> None:
 
     assert response.status_code == 200
     assert "ASEM Talint Candidate Lab" in response.text
+    assert 'aria-label="ASEM Talint logo"' in response.text
     assert "Repair queue" in response.text
     assert "Coach notes" in response.text
 

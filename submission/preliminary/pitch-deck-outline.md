@@ -1,8 +1,19 @@
 # Preliminary Round Pitch Deck Outline
 
-Deck status: Draft  
+Deck status: PPTX generated at [ASEM-Talint-10-minute-presentation.pptx](./ASEM-Talint-10-minute-presentation.pptx); this outline remains the editable narrative source.  
 Target length: 10 minutes  
 Recommended slide count: 11
+
+Generated assets currently used by the PPTX deck:
+
+- [Generated PPTX deck](./ASEM-Talint-10-minute-presentation.pptx)
+- [Deck generator](./generate_pitch_deck.py)
+- [Dashboard home snapshot](./assets/dashboard-home.png)
+- [Candidate Lab snapshot](./assets/candidate-lab.png)
+- [Market Studio snapshot](./assets/market-studio.png)
+- [Pathway Planner snapshot](./assets/pathway-planner.png)
+- [ERP Bridge snapshot](./assets/erp-bridge.png)
+- [GIS accessibility fallback image](./assets/dashboard-gis-accessibility-panel.png)
 
 ## Slide 1. Title, Team, and One-Sentence Thesis
 
@@ -17,7 +28,8 @@ ASEM Talint is a dashboard-first semiconductor talent decision system that combi
 ### On-screen proof
 
 - product name
-- team name and members
+- team: Novum
+- Ong Khai Sern (team leader), Tan Eng Feng (team member)
 - short thesis sentence
 
 ## Slide 2. Domain Problem and Why It Matters

@@ -1,6 +1,6 @@
 # Preliminary Round Submission Checklist
 
-Checklist status: Working draft  
+Checklist status: Updated after PPTX deck generation  
 Submission channel: Official UMHackathon website only
 
 ## 1. Deliverables Package
@@ -9,9 +9,9 @@ Submission channel: Official UMHackathon website only
 | --- | --- | --- | --- |
 | Product Requirement Document (PRD) | [PRD draft](./PRD.md) | PDF | In progress |
 | System Analysis Document (SAD) | [SAD draft](./SAD.md) | PDF | In progress |
-| Code repository | Public GitHub or approved source link | URL | `UNSPECIFIED` public link |
+| Code repository | Public GitHub repository | URL | https://github.com/khaisernong/ASEM-Talint |
 | Quality Assurance Testing Document (QATD) | [QATD draft](./QATD.md) | PDF | In progress |
-| Preliminary round pitch deck | [Pitch deck outline](./pitch-deck-outline.md) and [pitch deck script](./pitch-deck-script.md) | PPTX or PDF deck | In progress |
+| Preliminary round pitch deck | [Generated PPTX deck](./ASEM-Talint-10-minute-presentation.pptx), [pitch deck outline](./pitch-deck-outline.md), [pitch deck script](./pitch-deck-script.md), and [deck generator](./generate_pitch_deck.py) | PPTX or PDF deck | PPTX generated; ready for visual review/export |
 | 10-minute pitching video with prototype demonstration | [Video demo runbook](./video-demo-runbook.md) | MP4 or MOV | In progress |
 
 ## 2. Content Gate Before Exporting PDFs
@@ -24,7 +24,7 @@ Submission channel: Official UMHackathon website only
 
 ## 3. Repository Gate
 
-- create or confirm the public repository URL
+- confirm the public repository URL still points to the submitted snapshot
 - verify no secrets, tokens, or private links are committed
 - verify README setup instructions still match the current code path
 - verify the repository shows Z.AI as the primary reasoning path
@@ -41,7 +41,7 @@ Submission channel: Official UMHackathon website only
 ## 5. Final Submission Gate
 
 - export the PRD, SAD, and QATD to PDF
-- verify the pitch deck file opens cleanly
+- verify [ASEM-Talint-10-minute-presentation.pptx](./ASEM-Talint-10-minute-presentation.pptx) opens cleanly
 - verify the video file plays correctly in MP4 or MOV format
 - verify all final file names are human-readable and consistent
 - verify citations remain visible after export to PDF
@@ -59,9 +59,10 @@ Submission channel: Official UMHackathon website only
 
 1. Freeze the repository snapshot and rerun tests.
 2. Export PRD, SAD, and QATD to PDF.
-3. Finalize the deck and record the 10-minute demo video.
+3. Review or revise [ASEM-Talint-10-minute-presentation.pptx](./ASEM-Talint-10-minute-presentation.pptx), then export a PDF version if needed.
 4. Check every citation and public link one last time.
-5. Upload the full package to the official UMHackathon website once.
+5. Record the 10-minute demo video against the same repository snapshot and deck.
+6. Upload the full package to the official UMHackathon website once.
 
 ## References
 

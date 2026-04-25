@@ -4,9 +4,12 @@ Video status: Draft
 Target format: MP4 or MOV  
 Target duration: 10 minutes maximum
 
+Deck currently paired with this runbook: [ASEM-Talint-10-minute-presentation.pptx](./ASEM-Talint-10-minute-presentation.pptx)
+
 ## Pre-Recording Technical Checklist
 
 - confirm the exact environment to be recorded is the same one used for the final pitch
+- confirm the generated deck file [ASEM-Talint-10-minute-presentation.pptx](./ASEM-Talint-10-minute-presentation.pptx) matches the repository snapshot being recorded
 - confirm `/health` reports the live Z.AI route as ready
 - confirm a live call to `POST /v1/decisions/candidate-track-fit` succeeds before recording
 - remove secrets, raw API keys, and private links from the visible screen
@@ -31,7 +34,7 @@ ASSUMPTION: the final recording environment will have a valid and authorized Z.A
 
 ## 1. Opening
 
-- introduce the product name and team, and expand Talint once as "talent intelligence"
+- introduce the product name and team: Novum, with Ong Khai Sern as team leader and Tan Eng Feng as team member; expand Talint once as "talent intelligence"
 - state that the system helps training operators make auditable semiconductor pathway decisions
 - state explicitly that Z.AI GLM is the judged reasoning engine in the shipped product path
 

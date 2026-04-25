@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from asem_talent.api.branding import BRAND_CSS, render_hero_brand, render_nav_brand
+
 
 NAV_ITEMS = (
     ("/", "Home"),
@@ -30,6 +32,8 @@ BASE_PAGE_HTML = """
       --border: rgba(35, 32, 28, 0.1);
       --shadow: 0 18px 46px rgba(35, 32, 28, 0.06);
     }
+
+__BRAND_CSS__
 
     * {
       box-sizing: border-box;
@@ -435,6 +439,7 @@ BASE_PAGE_HTML = """
   <main class="shell">
     __NAV__
     <section class="hero">
+      __HERO_BRAND__
       <div class="eyebrow">__EYEBROW__</div>
       <h1>__HEADING__</h1>
       <p class="hero-copy">__LEDE__</p>
@@ -1622,11 +1627,12 @@ buildErpPackage();
 
 
 def _nav(active_path: str) -> str:
+    slug = active_path.strip("/").replace("/", "-") or "home"
     links: list[str] = []
     for path, label in NAV_ITEMS:
-        classes = "nav-link nav-link-active" if path == active_path else "nav-link"
+        classes = 'nav-link nav-link-active' if path == active_path else 'nav-link'
         links.append(f'<a class="{classes}" href="{path}">{label}</a>')
-    return '<nav class="app-nav" aria-label="App navigation">' + "".join(links) + "</nav>"
+    return '<nav class="app-nav" aria-label="App navigation">' + render_nav_brand(id_prefix=f"{slug}-nav") + "".join(links) + "</nav>"
 
 
 def _render_page(
@@ -1639,20 +1645,23 @@ def _render_page(
     body: str,
     page_script: str,
 ) -> str:
-    html = BASE_PAGE_HTML
-    replacements = {
-        "__TITLE__": title,
-        "__NAV__": _nav(active_path),
-        "__EYEBROW__": eyebrow,
-        "__HEADING__": heading,
-        "__LEDE__": lede,
-        "__BODY__": body,
-        "__COMMON_SCRIPT__": COMMON_SCRIPT,
-        "__PAGE_SCRIPT__": page_script,
-    }
-    for old, new in replacements.items():
-        html = html.replace(old, new)
-    return html
+  html = BASE_PAGE_HTML
+  slug = active_path.strip("/").replace("/", "-") or "home"
+  replacements = {
+    "__TITLE__": title,
+    "__BRAND_CSS__": BRAND_CSS,
+    "__NAV__": _nav(active_path),
+    "__HERO_BRAND__": render_hero_brand(id_prefix=f"{slug}-hero", variant="page"),
+    "__EYEBROW__": eyebrow,
+    "__HEADING__": heading,
+    "__LEDE__": lede,
+    "__BODY__": body,
+    "__COMMON_SCRIPT__": COMMON_SCRIPT,
+    "__PAGE_SCRIPT__": page_script,
+  }
+  for old, new in replacements.items():
+    html = html.replace(old, new)
+  return html
 
 
 def candidate_lab_html() -> str:

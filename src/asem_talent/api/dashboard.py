@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 from fastapi.responses import HTMLResponse
 
+from asem_talent.api.branding import BRAND_CSS, render_hero_brand, render_nav_brand
 from asem_talent.api.page_templates import candidate_lab_html, erp_bridge_html, market_studio_html, pathway_planner_html
 
 router = APIRouter(include_in_schema=False)
@@ -26,6 +27,8 @@ DASHBOARD_HTML = """
       --border: rgba(35, 32, 28, 0.1);
       --shadow: 0 18px 46px rgba(35, 32, 28, 0.06);
     }
+
+__BRAND_CSS__
 
     * {
       box-sizing: border-box;
@@ -645,6 +648,13 @@ DASHBOARD_HTML = """
     }
 
     @media (max-width: 920px) {
+      .brand-lockup-nav {
+        width: 100%;
+        justify-content: center;
+        margin-right: 0;
+        padding: 4px 0 8px;
+      }
+
       .workspace {
         grid-template-columns: 1fr;
       }
@@ -670,6 +680,7 @@ DASHBOARD_HTML = """
 <body>
   <main class="shell">
     <nav class="app-nav" aria-label="App navigation">
+      __NAV_BRAND__
       <a class="nav-link nav-link-active" href="/">Home</a>
       <a class="nav-link" href="/candidate-lab">Candidate Lab</a>
       <a class="nav-link" href="/market-studio">Market Studio</a>
@@ -678,6 +689,7 @@ DASHBOARD_HTML = """
     </nav>
 
     <section class="hero">
+      __HERO_BRAND__
       <div class="eyebrow">ASEM Talint | calm, evidence-first review</div>
       <h1>One place to read the candidate clearly</h1>
       <p class="hero-copy">
@@ -1606,6 +1618,18 @@ DASHBOARD_HTML = """
 </body>
 </html>
 """
+
+DASHBOARD_HTML = (
+  DASHBOARD_HTML.replace("__BRAND_CSS__", BRAND_CSS)
+  .replace("__NAV_BRAND__", render_nav_brand(id_prefix="dashboard-nav"))
+  .replace(
+    "__HERO_BRAND__",
+    render_hero_brand(
+      caption="Decision intelligence for semiconductor mobility",
+      id_prefix="dashboard-hero",
+    ),
+  )
+)
 
 
 @router.get("/", response_class=HTMLResponse)
