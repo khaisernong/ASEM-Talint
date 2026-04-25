@@ -1,3 +1,4 @@
+import httpx
 import json
 
 import pytest
@@ -44,6 +45,19 @@ class SequencedClient:
         payload = self.payloads[min(self.calls, len(self.payloads) - 1)]
         self.calls += 1
         return FakeHTTPResponse(payload)
+
+
+class ExceptionThenSuccessClient:
+    def __init__(self, error: Exception, payload: dict) -> None:
+        self.error = error
+        self.payload = payload
+        self.calls = 0
+
+    def post(self, url: str, json: dict, headers: dict) -> FakeHTTPResponse:
+        self.calls += 1
+        if self.calls == 1:
+            raise self.error
+        return FakeHTTPResponse(self.payload)
 
 
 def test_build_candidate_decision_messages_truncates_notes(sample_request) -> None:
@@ -378,6 +392,55 @@ def test_ilmu_provider_retries_after_invalid_response_payload(sample_request) ->
         notes_max_chars=120,
         retry_attempts=1,
         client=SequencedClient([invalid_payload, valid_payload]),
+    )
+
+    explanation, usage = provider.explain_candidate_track_fit(sample_request, context)
+
+    assert explanation.recommendation == "Proceed"
+    assert usage.request_id == "req_good"
+
+
+def test_ilmu_provider_retries_after_transient_http_timeout(sample_request) -> None:
+    context = build_decision_context(sample_request.candidate, sample_request.target_track)
+    valid_payload = {
+        "id": "req_good",
+        "model": "ilmu-test",
+        "choices": [
+            {
+                "message": {
+                    "content": json.dumps(
+                        {
+                            "recommendation": "Proceed",
+                            "recommendation_type": "track_fit",
+                            "target_track_or_role": sample_request.target_track.track_name,
+                            "explanation_summary": "Compact valid response.",
+                            "top_factors": ["factor"],
+                            "missing_inputs": [],
+                            "tradeoffs": ["tradeoff"],
+                            "confidence": context.confidence_baseline,
+                            "pathway_steps": ["step"],
+                            "wage_note": "wage",
+                            "accessibility_note": "access",
+                            "validation_notes": ["ok"],
+                        }
+                    )
+                },
+                "finish_reason": "stop",
+            }
+        ],
+        "usage": {"prompt_tokens": 10, "completion_tokens": 10, "total_tokens": 20},
+    }
+    provider = ILMUProvider(
+        api_key="test-key",
+        base_url="https://api.ilmu.example/v1/",
+        model_name="ilmu-test",
+        timeout_seconds=10,
+        max_tokens=1800,
+        temperature=0.1,
+        notes_max_chars=120,
+        retry_attempts=1,
+        retry_backoff_seconds=0,
+        client=ExceptionThenSuccessClient(httpx.ReadTimeout("read timed out"), valid_payload),
     )
 
     explanation, usage = provider.explain_candidate_track_fit(sample_request, context)

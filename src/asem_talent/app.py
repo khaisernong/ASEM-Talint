@@ -14,31 +14,26 @@ def create_app() -> FastAPI:
 
     @application.get("/health", tags=["health"])
     def healthcheck() -> dict[str, object]:
-        missing_zai_config = settings.missing_zai_config()
-        missing_ilmu_config = settings.missing_ilmu_config()
+        missing_review_config = settings.missing_ilmu_config()
 
-        zai_provider_ready = len(missing_zai_config) == 0
-        ilmu_provider_ready = len(missing_ilmu_config) == 0
-        zai_provider_message = (
-            "Live Z.AI route ready."
-            if zai_provider_ready
-            else f"Configure {', '.join(missing_zai_config)} to enable the live Z.AI route."
-        )
-        ilmu_provider_message = (
-            "Optional ILMU route ready."
-            if ilmu_provider_ready
-            else f"Configure {', '.join(missing_ilmu_config)} to enable the optional ILMU route."
+        review_provider_ready = len(missing_review_config) == 0
+        review_provider_message = (
+            "Z.AI / ILMU review ready."
+            if review_provider_ready
+            else f"Configure {', '.join(missing_review_config)} to enable the Z.AI / ILMU review."
         )
 
         return {
             "status": "ok",
             "environment": settings.app_env,
-            "live_provider_ready": zai_provider_ready,
-            "live_provider_message": zai_provider_message,
-            "zai_provider_ready": zai_provider_ready,
-            "zai_provider_message": zai_provider_message,
-            "ilmu_provider_ready": ilmu_provider_ready,
-            "ilmu_provider_message": ilmu_provider_message,
+            "live_provider_ready": review_provider_ready,
+            "live_provider_message": review_provider_message,
+            "zai_provider_ready": review_provider_ready,
+            "zai_provider_message": review_provider_message,
+            "ilmu_provider_ready": review_provider_ready,
+            "ilmu_provider_message": review_provider_message,
+            "review_provider_ready": review_provider_ready,
+            "review_provider_message": review_provider_message,
         }
 
     application.include_router(dashboard_router)

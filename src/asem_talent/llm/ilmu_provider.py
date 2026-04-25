@@ -21,7 +21,8 @@ class ILMUProvider(OpenAICompatibleProvider):
         max_tokens: int,
         temperature: float,
         notes_max_chars: int,
-        retry_attempts: int = 2,
+        retry_attempts: int = 3,
+        retry_backoff_seconds: float = 1.0,
         client: httpx.Client | None = None,
     ) -> None:
         super().__init__(
@@ -38,5 +39,6 @@ class ILMUProvider(OpenAICompatibleProvider):
             notes_max_chars=notes_max_chars,
             extra_system_instructions=ILMU_COMPACT_JSON_INSTRUCTIONS,
             retry_attempts=retry_attempts,
+            retry_backoff_seconds=retry_backoff_seconds,
             client=client,
         )

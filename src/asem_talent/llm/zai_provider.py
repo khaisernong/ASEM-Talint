@@ -13,6 +13,7 @@ class ZAIProvider(OpenAICompatibleProvider):
         temperature: float,
         notes_max_chars: int,
         retry_attempts: int = 2,
+        retry_backoff_seconds: float = 1.0,
         client: httpx.Client | None = None,
     ) -> None:
         super().__init__(
@@ -28,5 +29,6 @@ class ZAIProvider(OpenAICompatibleProvider):
             temperature=temperature,
             notes_max_chars=notes_max_chars,
             retry_attempts=retry_attempts,
+            retry_backoff_seconds=retry_backoff_seconds,
             client=client,
         )

@@ -1,5 +1,6 @@
 import json
 from time import perf_counter
+from time import sleep
 
 import httpx
 
@@ -30,6 +31,7 @@ class OpenAICompatibleProvider:
         notes_max_chars: int,
         extra_system_instructions: str | None = None,
         retry_attempts: int = 2,
+        retry_backoff_seconds: float = 1.0,
         client: httpx.Client | None = None,
     ) -> None:
         self.provider_name = provider_name
@@ -45,6 +47,7 @@ class OpenAICompatibleProvider:
         self.notes_max_chars = notes_max_chars
         self.extra_system_instructions = extra_system_instructions
         self.retry_attempts = retry_attempts
+        self.retry_backoff_seconds = retry_backoff_seconds
         self.client = client or httpx.Client(timeout=self.timeout_seconds)
 
     def explain_candidate_track_fit(
@@ -98,6 +101,7 @@ class OpenAICompatibleProvider:
                 last_error = error
                 if attempt >= self.retry_attempts:
                     break
+                sleep(self.retry_backoff_seconds * (attempt + 1))
 
         raise DecisionProviderError(f"{self.provider_name} provider call failed after retries: {last_error}")
 

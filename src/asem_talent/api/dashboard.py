@@ -693,7 +693,7 @@ __BRAND_CSS__
       <div class="eyebrow">ASEM Talint | calm, evidence-first review</div>
       <h1>One place to read the candidate clearly</h1>
       <p class="hero-copy">
-        Review fit, market context, and next steps in a quieter workflow. Use the live Z.AI path when credentials are ready, or the clearly labeled local preview when they are not.
+        Review fit, market context, and next steps in a quieter workflow. Use the Z.AI / ILMU review when credentials are ready, or the clearly labeled local preview when they are not.
       </p>
 
       <section class="strategy-note" aria-label="Made by Malaysia strategy note">
@@ -753,7 +753,7 @@ __BRAND_CSS__
         </article>
         <article class="badge">
           <div class="badge-label">Primary path</div>
-          <div class="badge-value">Z.AI GLM</div>
+          <div class="badge-value">Z.AI / ILMU</div>
         </article>
         <article class="badge">
           <div class="badge-label">Local preview</div>
@@ -799,7 +799,7 @@ __BRAND_CSS__
             <button class="ghost" id="reset-payload">Reset sample</button>
           </div>
           <div class="footnote">
-            Z.AI remains the core model path. The combined review button uses the ILMU-backed Z.AI GLM route, while the local preview stays clearly outside the judged path.
+            The Z.AI / ILMU review is the primary runtime path. It uses ILMU.ai as the access path to a Z.AI GLM-backed model, while the local preview stays clearly outside the judged path.
           </div>
           <section class="output-card" style="margin-top:16px;">
             <div class="resume-head">
@@ -1111,8 +1111,7 @@ __BRAND_CSS__
     const resumeWarningCount = document.getElementById("resume-warning-count");
     const resumeTags = document.getElementById("resume-tags");
     const resumePreview = document.getElementById("resume-preview");
-    let zaiProviderReady = false;
-    let ilmuProviderReady = false;
+    let reviewProviderReady = false;
 
     function resetPayload() {
       syncPayloadInput(cloneSamplePayload());
@@ -1405,7 +1404,7 @@ __BRAND_CSS__
 
     function setBusyState(isBusy, label) {
       requestStatus.textContent = label;
-      runReviewButton.disabled = isBusy || !ilmuProviderReady;
+      runReviewButton.disabled = isBusy || !reviewProviderReady;
       runDemoButton.disabled = isBusy;
     }
 
@@ -1417,12 +1416,11 @@ __BRAND_CSS__
     async function fetchHealth() {
       const response = await fetch("/health");
       const body = await response.json();
-      zaiProviderReady = Boolean(body.zai_provider_ready ?? body.live_provider_ready);
-      ilmuProviderReady = Boolean(body.ilmu_provider_ready);
-      runtimeStatus.textContent = `${body.status} / ${body.environment} / Z.AI ${zaiProviderReady ? "ready" : "unavailable"} / ILMU ${ilmuProviderReady ? "ready" : "unavailable"}`;
-      runReviewButton.disabled = !ilmuProviderReady;
-      if (!ilmuProviderReady) {
-        requestStatus.textContent = body.ilmu_provider_message || "Configure ILMU_API_KEY, ILMU_BASE_URL, and ILMU_MODEL to enable the Z.AI / ILMU review.";
+      reviewProviderReady = Boolean(body.review_provider_ready ?? body.ilmu_provider_ready ?? body.zai_provider_ready ?? body.live_provider_ready);
+      runtimeStatus.textContent = `${body.status} / ${body.environment} / Z.AI / ILMU ${reviewProviderReady ? "ready" : "unavailable"}`;
+      runReviewButton.disabled = !reviewProviderReady;
+      if (!reviewProviderReady) {
+        requestStatus.textContent = body.review_provider_message || body.ilmu_provider_message || "Configure ILMU_API_KEY, ILMU_BASE_URL, and ILMU_MODEL to enable the Z.AI / ILMU review.";
       }
     }
 
@@ -1571,7 +1569,7 @@ __BRAND_CSS__
     }
 
     runReviewButton.addEventListener("click", () => {
-      if (ilmuProviderReady) {
+      if (reviewProviderReady) {
         submitDecision("/v1/decisions/candidate-track-fit/ilmu", "Calling Z.AI / ILMU review via ILMU compatibility route", "Z.AI / ILMU review loaded");
         return;
       }

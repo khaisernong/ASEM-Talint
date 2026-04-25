@@ -149,7 +149,9 @@ def test_health_endpoint_reports_provider_readiness_when_optional_routes_are_unc
     assert body["live_provider_ready"] is False
     assert body["zai_provider_ready"] is False
     assert body["ilmu_provider_ready"] is False
-    assert "ZAI_API_KEY" in body["live_provider_message"]
+    assert body["review_provider_ready"] is False
+    assert "ILMU_API_KEY" in body["live_provider_message"]
+    assert "ILMU_API_KEY" in body["review_provider_message"]
     assert "ILMU_API_KEY" in body["ilmu_provider_message"]
 
     get_settings.cache_clear()
