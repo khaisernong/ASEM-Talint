@@ -6,10 +6,13 @@ Target duration: 10 minutes maximum
 
 Deck currently paired with this runbook: [ASEM-Talint-10-minute-presentation.pptx](./ASEM-Talint-10-minute-presentation.pptx)
 
+Detailed screen-first dual-host script: [video-demo-dual-host-script.md](./video-demo-dual-host-script.md)
+
 ## Pre-Recording Technical Checklist
 
 - confirm the exact environment to be recorded is the same one used for the final pitch
 - confirm the generated deck file [ASEM-Talint-10-minute-presentation.pptx](./ASEM-Talint-10-minute-presentation.pptx) matches the repository snapshot being recorded
+- start screen capture and microphone capture at the same time; if a backup audio recorder is used, add one clap for sync before speaking
 - confirm `/health` reports the live Z.AI route as ready
 - confirm a live call to `POST /v1/decisions/candidate-track-fit` succeeds before recording
 - remove secrets, raw API keys, and private links from the visible screen

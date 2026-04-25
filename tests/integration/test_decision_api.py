@@ -72,7 +72,7 @@ def test_dashboard_root_returns_html() -> None:
     assert "ASEM Talint Dashboard" in response.text
     assert 'aria-label="ASEM Talint logo"' in response.text
     assert "Local capability, not just placement" in response.text
-    assert "Run ILMU route" in response.text
+    assert "Run Z.AI / ILMU review" in response.text
     assert "Run local preview" in response.text
     assert "Parse resume" in response.text
     assert "Candidate Lab" in response.text

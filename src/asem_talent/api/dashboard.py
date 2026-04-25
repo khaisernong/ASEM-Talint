@@ -787,20 +787,19 @@ __BRAND_CSS__
           <div>
             <div class="panel-label">Working case</div>
             <h2 class="panel-title">Candidate brief</h2>
-            <p class="panel-subtitle">Adjust the shared case, then run the live Z.AI review, the optional ILMU route, or the local preview.</p>
+            <p class="panel-subtitle">Adjust the shared case, then run the Z.AI / ILMU review or the local preview.</p>
           </div>
           <div class="status-pill" id="request-status">Idle</div>
         </div>
         <div class="panel-body">
           <textarea id="payload-input"></textarea>
           <div class="actions">
-            <button class="primary" id="run-live">Run Z.AI review</button>
-            <button class="secondary" id="run-ilmu">Run ILMU route</button>
+            <button class="primary" id="run-review">Run Z.AI / ILMU review</button>
             <button class="secondary" id="run-demo">Run local preview</button>
             <button class="ghost" id="reset-payload">Reset sample</button>
           </div>
           <div class="footnote">
-            Z.AI remains the judge path. The ILMU route is optional compatibility infrastructure, and the local preview stays clearly outside the judged path.
+            Z.AI remains the core model path. The combined review button uses the ILMU-backed Z.AI GLM route, while the local preview stays clearly outside the judged path.
           </div>
           <section class="output-card" style="margin-top:16px;">
             <div class="resume-head">
@@ -1099,8 +1098,7 @@ __BRAND_CSS__
     const currentWageBar = document.getElementById("current-wage-bar");
     const targetWageBar = document.getElementById("target-wage-bar");
     const mobilitySummary = document.getElementById("mobility-summary");
-    const runLiveButton = document.getElementById("run-live");
-    const runIlmuButton = document.getElementById("run-ilmu");
+    const runReviewButton = document.getElementById("run-review");
     const runDemoButton = document.getElementById("run-demo");
     const resetButton = document.getElementById("reset-payload");
     const refreshMarketButton = document.getElementById("refresh-market");
@@ -1407,8 +1405,7 @@ __BRAND_CSS__
 
     function setBusyState(isBusy, label) {
       requestStatus.textContent = label;
-      runLiveButton.disabled = isBusy || !zaiProviderReady;
-      runIlmuButton.disabled = isBusy || !ilmuProviderReady;
+      runReviewButton.disabled = isBusy || !ilmuProviderReady;
       runDemoButton.disabled = isBusy;
     }
 
@@ -1423,10 +1420,9 @@ __BRAND_CSS__
       zaiProviderReady = Boolean(body.zai_provider_ready ?? body.live_provider_ready);
       ilmuProviderReady = Boolean(body.ilmu_provider_ready);
       runtimeStatus.textContent = `${body.status} / ${body.environment} / Z.AI ${zaiProviderReady ? "ready" : "unavailable"} / ILMU ${ilmuProviderReady ? "ready" : "unavailable"}`;
-      runLiveButton.disabled = !zaiProviderReady;
-      runIlmuButton.disabled = !ilmuProviderReady;
-      if (!zaiProviderReady) {
-        requestStatus.textContent = body.zai_provider_message || body.live_provider_message || "Configure the live Z.AI route before running it.";
+      runReviewButton.disabled = !ilmuProviderReady;
+      if (!ilmuProviderReady) {
+        requestStatus.textContent = body.ilmu_provider_message || "Configure ILMU_API_KEY, ILMU_BASE_URL, and ILMU_MODEL to enable the Z.AI / ILMU review.";
       }
     }
 
@@ -1574,19 +1570,12 @@ __BRAND_CSS__
       }
     }
 
-    runLiveButton.addEventListener("click", () => {
-      if (!zaiProviderReady) {
-        requestStatus.textContent = "Configure ZAI_API_KEY and GLM_MODEL to enable the live Z.AI route.";
+    runReviewButton.addEventListener("click", () => {
+      if (ilmuProviderReady) {
+        submitDecision("/v1/decisions/candidate-track-fit/ilmu", "Calling Z.AI / ILMU review via ILMU compatibility route", "Z.AI / ILMU review loaded");
         return;
       }
-      submitDecision("/v1/decisions/candidate-track-fit", "Calling live Z.AI route", "Live Z.AI result loaded");
-    });
-    runIlmuButton.addEventListener("click", () => {
-      if (!ilmuProviderReady) {
-        requestStatus.textContent = "Configure ILMU_API_KEY, ILMU_BASE_URL, and ILMU_MODEL to enable the optional ILMU route.";
-        return;
-      }
-      submitDecision("/v1/decisions/candidate-track-fit/ilmu", "Calling optional ILMU route", "Optional ILMU result loaded");
+      requestStatus.textContent = "Configure ILMU_API_KEY, ILMU_BASE_URL, and ILMU_MODEL to enable the Z.AI / ILMU review.";
     });
     runDemoButton.addEventListener("click", () => submitDecision("/v1/decisions/candidate-track-fit/demo", "Running degraded local demo", "Demo result loaded"));
     resetButton.addEventListener("click", () => {
