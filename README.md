@@ -1,5 +1,20 @@
 # ASEM Talint Skeleton
 
+## Preliminary Video Demo
+
+**Recorded 10-minute pitching video with product demonstration:**
+
+[Watch the pitching video](https://drive.google.com/file/d/1nNMMPONF60tLSay7Jueiiqmb41koTXRP/view?usp=sharing)
+
+## Preliminary Deliverables
+
+- PRD PDF: [submission/preliminary/PRD.pdf](submission/preliminary/PRD.pdf)
+- SAD PDF: [submission/preliminary/SAD.pdf](submission/preliminary/SAD.pdf)
+- QATD PDF: [submission/preliminary/QATD.pdf](submission/preliminary/QATD.pdf)
+- Pitch deck PDF: [submission/preliminary/ASEM-Talint-10-minute-presentation.pdf](submission/preliminary/ASEM-Talint-10-minute-presentation.pdf)
+- Pitch video script PDF: [submission/preliminary/video-demo-dual-host-script.pdf](submission/preliminary/video-demo-dual-host-script.pdf)
+- Code repository: this GitHub repository
+
 This repository now includes a minimal ASEM-centered application skeleton for UM Hackathon Domain 2. The current vertical slice evaluates a candidate against a semiconductor training track, computes a deterministic suitability breakdown, and sends that evidence to Z.AI GLM for a structured recommendation and explanation.
 
 ## Primary User
@@ -12,7 +27,7 @@ The primary user is ASEM as a training-provider and talent-pipeline operator. Th
 - deterministic score breakdown for readiness, gaps, and supporting factors
 - optional structured resume context for skills, projects, internships, certifications, and tools
 - resume upload endpoint for PDF and DOCX files with size limits, OCR fallback for image-only PDFs, and PII-redacted preview output
-- `LLMProvider` abstraction with a primary `ZAIProvider` and an optional `ILMUProvider` compatibility path
+- `LLMProvider` abstraction with a shipped Z.AI GLM reasoning path accessed through the Z.AI / ILMU runtime configuration used in the live review flow
 - one FastAPI endpoint for candidate-track fit decisions
 - browser dashboard at `/` and `/dashboard`
 - dedicated dashboard resume-intake section that applies parsed resume evidence into the payload automatically
@@ -29,16 +44,15 @@ The primary user is ASEM as a training-provider and talent-pipeline operator. Th
 - `src/asem_talent/api`: FastAPI app, dependencies, and routes
 - `tests`: unit and integration coverage for the initial flow
 
-Z.AI GLM remains central in the reasoning path. Deterministic scoring stays in code, and the model is used for structured recommendation and explanation output. The ILMU path is optional non-judge-path infrastructure only.
+Z.AI GLM remains central in the reasoning path. Deterministic scoring stays in code, and the model is used for structured recommendation and explanation output. In the current shipped flow, the judge-facing runtime is labeled `Z.AI / ILMU` because ILMU.ai is used as the access path to a Z.AI GLM-backed model.
 
 ## Setup
 
 1. Create and activate a Python 3.11+ environment.
 2. Install dependencies with `pip install -e .[dev]`.
-3. Copy `.env.example` to `.env` and set `ZAI_API_KEY` plus a valid `GLM_MODEL` available to your account.
-	If you are using Open.BigModel / Zhipu's OpenAI-compatible endpoint, set `ZAI_BASE_URL=https://open.bigmodel.cn/api/paas/v4` and a model such as `GLM_MODEL=glm-4`.
-4. If optional organizer-approved ILMU infrastructure is available, set `ILMU_API_KEY`, `ILMU_BASE_URL`, and `ILMU_MODEL` as well.
-5. Start the API with `uvicorn asem_talent.app:app --reload`.
+3. Copy `.env.example` to `.env` and set `ILMU_API_KEY`, `ILMU_BASE_URL`, and `ILMU_MODEL` for the live `Z.AI / ILMU` review path.
+4. If you are using Open.BigModel / Zhipu's OpenAI-compatible endpoint directly for separate experiments, set `ZAI_BASE_URL=https://open.bigmodel.cn/api/paas/v4` and a model such as `GLM_MODEL=glm-4`.
+5. Start the API with `uvicorn asem_talent.app:app --reload --app-dir src`.
 6. Open `http://127.0.0.1:8000/` for the dashboard.
 
 ## Preliminary Round Submission Pack
@@ -49,7 +63,7 @@ For the first round or preliminary round, the team submission should package the
 - System Analysis Document (SAD) in PDF format
 - code repository link or archive, with a public GitHub or source-code link encouraged by the handbook
 - Quality Assurance Testing Document (QATD) in PDF format
-- preliminary-round presentation pitch deck
+- preliminary-round presentation pitch deck in PDF format
 - 10-minute pitching video with prototype demonstration in MP4 or MOV format
 
 Across those artifacts, judges should be able to see the ideation, development approach, domain-problem fit, and product feasibility of the solution. In this repository, that means the PRD, SAD, QATD, pitch narrative, and demo should all keep the Z.AI GLM decision path explicit rather than describing the product as a generic chatbot.
@@ -66,6 +80,14 @@ Working preliminary-round submission drafts now live under `submission/prelimina
 - `submission/preliminary/pitch-deck-outline.md`
 - `submission/preliminary/video-demo-runbook.md`
 - `submission/preliminary/submission-checklist.md`
+
+The repository submission pack also includes exported PDFs for judge upload and review:
+
+- [submission/preliminary/PRD.pdf](submission/preliminary/PRD.pdf)
+- [submission/preliminary/SAD.pdf](submission/preliminary/SAD.pdf)
+- [submission/preliminary/QATD.pdf](submission/preliminary/QATD.pdf)
+- [submission/preliminary/ASEM-Talint-10-minute-presentation.pdf](submission/preliminary/ASEM-Talint-10-minute-presentation.pdf)
+- [submission/preliminary/video-demo-dual-host-script.pdf](submission/preliminary/video-demo-dual-host-script.pdf)
 
 ## Official Data Ingestion Jobs
 
@@ -98,9 +120,9 @@ The discovered OpenDOSM dataset ids and storage URLs are tracked in `data/source
 - `ZAI_API_KEY`: server-side Z.AI API key
 - `ZAI_BASE_URL`: OpenAI-compatible GLM base URL, for example `https://api.z.ai/api/paas/v4` or `https://open.bigmodel.cn/api/paas/v4`
 - `GLM_MODEL`: target GLM model identifier
-- `ILMU_API_KEY`: optional ILMU API key for the non-judge-path compatibility route
-- `ILMU_BASE_URL`: optional ILMU OpenAI-compatible base URL for the non-judge-path compatibility route
-- `ILMU_MODEL`: optional ILMU model identifier for the non-judge-path compatibility route
+- `ILMU_API_KEY`: ILMU API key for the shipped `Z.AI / ILMU` review path
+- `ILMU_BASE_URL`: ILMU OpenAI-compatible base URL for the shipped `Z.AI / ILMU` review path
+- `ILMU_MODEL`: ILMU model identifier for the shipped `Z.AI / ILMU` review path
 - `ILMU_MAX_TOKENS`: optional ILMU completion-token cap; defaults to a higher budget than the Z.AI path because the tested ILMU route needed a compact but slightly larger JSON completion window
 - `ILMU_NOTES_MAX_CHARS`: optional ILMU prompt-budget cap for free-text and resume-summary fields; defaults to a smaller window than the Z.AI path so the compact ILMU route can finish within its tested completion budget
 - `ZAI_TIMEOUT_SECONDS`: outbound provider timeout
@@ -119,7 +141,7 @@ If you want to point the shipped GLM path at Open.BigModel / Zhipu, set:
 
 The provider trims a trailing slash automatically and calls `/chat/completions` using the same structured JSON contract used elsewhere in the app.
 
-ASSUMPTION: any ILMU route used with this repository exposes the same OpenAI-compatible `/chat/completions` contract. The ILMU path stays disabled until `ILMU_API_KEY`, `ILMU_BASE_URL`, and `ILMU_MODEL` are configured.
+ASSUMPTION: the ILMU.ai route used with this repository continues to expose the same OpenAI-compatible `/chat/completions` contract for access to a Z.AI GLM-backed model. The live review path stays disabled until `ILMU_API_KEY`, `ILMU_BASE_URL`, and `ILMU_MODEL` are configured.
 
 ## Tests
 
@@ -132,9 +154,9 @@ Run focused validation with `pytest`.
 3. Submit a candidate profile and target training track to `POST /v1/decisions/candidate-track-fit`.
 	The candidate payload can optionally include `resume_context` with structured skills, project highlights, internships, certifications, and inferred role signals.
 4. The service computes a deterministic suitability breakdown and skill gaps.
-5. The decision engine merges explicit candidate fields with structured resume evidence, then sends bounded JSON evidence to Z.AI GLM.
+5. The decision engine merges explicit candidate fields with structured resume evidence, then sends bounded JSON evidence to the live `Z.AI / ILMU` review path for Z.AI GLM-backed structured reasoning.
 6. The API returns a typed explanation object plus provider usage metadata.
-7. If optional ILMU infrastructure is configured, the dashboard and `POST /v1/decisions/candidate-track-fit/ilmu` expose the same structured contract as a non-judge-path compatibility route.
+7. The dashboard button labeled `Run Z.AI / ILMU review` and the primary decision route use the same structured contract as the shipped judge-facing runtime path.
 8. For local UI validation, the dashboard can call `POST /v1/decisions/candidate-track-fit/demo`, which is explicitly labeled as degraded non-judge-path behavior.
 9. Inspect signal slices at `GET /v1/signals/wages` and `GET /v1/signals/employer-demand`.
 10. Evaluate accessibility with `POST /v1/signals/accessibility`, OJT options with `POST /v1/matching/ojt`, and wage mobility with `POST /v1/analysis/wage-mobility`.
@@ -151,7 +173,7 @@ These files are generated development slices, not authoritative full exports. Th
 
 ## Compliance Note
 
-Z.AI GLM remains the only runtime reasoning provider in the shipped judge path represented by this skeleton. The ILMU compatibility route is optional, disabled by default, and clearly labeled as non-judge-path behavior.
+Z.AI GLM remains the runtime reasoning model in the shipped judge path represented by this skeleton. In the current implementation, ILMU.ai is the access path used by the live `Z.AI / ILMU` review flow, while the local demo route remains clearly labeled as degraded non-judge-path behavior.
 
 ## KPI Framing
 
